@@ -39,3 +39,4 @@ XML
 
     $sth->finish;
     $dbh->disconnect;
+}
