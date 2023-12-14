@@ -6,7 +6,7 @@ function showLogin() {
 
     let html = '<h2>Bienvenido ' + userFullName + '</h2>\n';
     html += `
-    <form action="#" onsubmit="doLogin(); return false;">
+    <form class='formulario' >
         <label for="user">Usuario:</label>
         <input type="text" id="user" name="user" required>
         <br><br>
@@ -97,7 +97,7 @@ function loginResponse(xml) {
 function showCreateAccount(){
     let html = '<h2>Bienvenido ' + userFullName + '</h2>\n';
     html += `
-    <form >
+    <form class='formulario' >
       <label for="user">Usuario:</label>
       <input type="text" id="user" name="user" required>
       <br><br>
