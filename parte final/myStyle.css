@@ -8,7 +8,7 @@
   .header {
     background-color: white;
     text-align: center;
-    padding: 20px;
+    padding: 10px;
   }
 
   /* Navegador */
@@ -82,4 +82,10 @@
     cursor: pointer;
     width: 80px;
 }
+.formulario{
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); 
+  padding: 20px;
+  width: 200px;
+}
+
 
