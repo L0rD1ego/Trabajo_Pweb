@@ -1,24 +1,21 @@
+body {
+  font-family: Arial;
+  padding: 10px;
+  background: #f1f1f1;
+}
 
-  body {
-    font-family: Arial;
-    padding: 10px;
-    background: #f1f1f1;
-  }
-  
-  .header {
-    background-color: white;
-    text-align: center;
-    padding: 10px;
-  }
-
-  /* Navegador */
-  .topnav {
+.header {
+  background-color: white;
+  text-align: center;
+  padding: 5px;
+  font-family: 'Times New Roman', Times, serif;
+}
+.navegador {
     overflow: hidden; /*ocultar cualquier contenido que se desborde*/
-    background-color: #0c5a81; 
-  }
-  
-  /* Navegador links */
-  .topnav p {
+    background-color: #0c5a81;
+}
+
+.navegador p {
     float: left;
     display: block;
     color: #ffffff;
@@ -26,40 +23,37 @@
     padding: 10px 16px;
     text-decoration: none;
     font-size: 20px;
-  }
-  
+}
+
   /* Links - cambiar color */
-  .topnav p:hover {
+.navegador  p:hover {
     background-color: #ffffff;
-    color: #0c5a81; 
-  }
+    color: #0c5a81;
+}
+#main {
+  background-color: white;
+  padding: 20px;
+  margin-top: 20px;
+}
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #ddd;
+  margin-top: 20px;
+  overflow: hidden;
+}
 
 
-  /* añadir al main */
-  .card {
-    background-color: white;
-    padding: 20px;
-    margin-top: 20px;
-  }
+#userName{
+  color: green;
+}
+.boton-log {
 
-  .footer {
-    padding: 20px;
-    text-align: center;
-    background: #ddd;
-    margin-top: 20px;
-    overflow: hidden;
-  }
-
-  .owner{
-    color: green;
-  }
-  
-  .boton-log {
-    background-color: #00A1F1; 
+    background-color: #00A1F1;
     color: white;
     border-radius: 5px;
     border: none;
-    padding: 8px ;
+    padding: 10px ;
     text-align: center;
     text-decoration: none;
     font-size: 16px;
@@ -67,11 +61,10 @@
     width: 130px;
 }
 .boton-log:hover {
-    background-color: #058acc; 
+    background-color: #058acc;
 }
-
 .boton-Op {
-    background-color: #0186c8;
+    background-color: #00A1F1;
     color: white;
     border: none;
     padding: 8px;
@@ -82,10 +75,12 @@
     cursor: pointer;
     width: 80px;
 }
+.boton-Op:hover {
+    background-color: #058acc;
+}
+
 .formulario{
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   width: 200px;
 }
-
-
