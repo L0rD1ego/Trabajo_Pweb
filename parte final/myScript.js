@@ -156,7 +156,7 @@ function lista(){
         //const xml = new DOMParser().parseFromString(data, 'text/xml');
         var xml = (new window.DOMParser()).parseFromString(data, "text/xml");
         mostrarLista(xml);
-     })
+    })
     .catch(error => console.error('Error:', error));
 
 
@@ -173,29 +173,28 @@ function mostrarLista(xml){
   console.log('mostrarLista');
 
   const articles = xml.querySelectorAll('article');
-  const listContainer = document.getElementById('main'); // Assuming you have a container element in your HTML to display the list
-
+  const contenedor = document.getElementById('main');
   if (articles.length === 0) {
-    listContainer.innerHTML = '<p>No hay articulos.</p>';
+    contenedor.innerHTML = '<p>No hay articulos.</p>';
     return;
   }
 
-  listContainer.innerHTML = '';
-
-  articles.forEach(article => {
+  contenedor.innerHTML = '';
+ articles.forEach(article => {
     const owner = article.querySelector('owner').textContent;
     const title = article.querySelector('title').textContent;
 
-    const articleContainer = document.createElement('div');
-    articleContainer.classList.add('article-item');
+    const articulos = document.createElement('div');
+    articulos.classList.add('article-item');
 
-    articleContainer.innerHTML = `
+    articulos.innerHTML = `
       <p><strong>Titulo:</strong> ${title}</p>
       <button onclick="verArchivo('${owner}', '${title}')"class='boton-Op'>Ver</button>
       <button onclick="eliminarArchivo('${owner}', '${title}')"class='boton-Op'>Eliminar</button>
       <button onclick="editarArchivo('${owner}', '${title}')"class='boton-Op'>Editar</button>
     `;
- listContainer.appendChild(articleContainer);
+
+    contenedor.appendChild(articulos);
   });
 }
 
@@ -228,7 +227,6 @@ function nuevoArticulo(){
 
   // Obtén el valor de usuario desde la variable global userKey
   const usuario = userKey;
-  console.log('usuario',usuario);
   // Enviar la información al servidor
   fetch('new.pl', {
     method: 'POST',
@@ -250,7 +248,7 @@ function nuevoArticulo(){
 }
 
 /*
- * Esta función invoca al CGI view.pl, la respuesta del CGI debe ser
+ * Esta función invoca al CGI view.pl
  */
 function verArchivo(owner, title){
 
@@ -273,8 +271,7 @@ function verArchivo(owner, title){
 }
 
 /*
- * Esta función invoca al CGI delete.pl recibe los datos del artículo a
- * borrar como argumentos, la respuesta del CGI debe ser atendida por lista
+ * Esta función invoca al CGI delete.pl
  */
 function eliminarArchivo(owner, title){
    fetch('delete.pl', {
@@ -294,7 +291,6 @@ function eliminarArchivo(owner, title){
     .catch(error => console.error('Error en eliminarArchivo:', error));
 
 }
-
 /*
  * Esta función recibe los datos del articulo a editar e invoca al cgi
  * article.pl la respuesta del CGI es procesada por responseEdit
@@ -309,25 +305,23 @@ function editarArchivo(owner, title){
   })
     .then(response => response.text())
     .then(data => {
-      console.log('Respuesta del servidor(editarArchivo)',data);
-      responseEdit(data); // Procesar la respuesta de la edición
+      var xml = (new window.DOMParser()).parseFromString(data, "text/xml");
+      console.log('Respuesta del servidor(editarArchivo)',xml);
+      formEditar(xml);
     })
     .catch(error => console.error('Error en editarArchivo:', error));
 
 }
+
 /*
- * Esta función recibe la respuesta del CGI data.pl y muestra el formulario
- * de edición con los datos llenos y dos botones:
- * - Actualizar que invoca a doUpdate
+ * - Actualizar que invoca a actualizarArt
  * - Cancelar que invoca a lista
  */
-function responseEdit(xmlString){
-  console.log('responseEdit');
+function formEditar(xml){
+  console.log('formEditar');
   const editContainer = document.getElementById('main');
 
-  const parser = new DOMParser();
-  const xmlDoc = parser.parseFromString(xmlString, 'text/xml');
-  const articleElement = xmlDoc.querySelector('article');
+  const articleElement = xml.querySelector('article');
 
   if (articleElement) {
     const owner = articleElement.querySelector('owner').textContent;
@@ -335,27 +329,21 @@ function responseEdit(xmlString){
     const text = articleElement.querySelector('text').textContent;
 
     let html = `
-      <form id="updateForm">
+      <form id="editar">
         <input type="hidden" name="titulo" value="${title}">
         <textarea name="text_intro" rows="5" cols="50" >${text}</textarea><br>
-        <button type="button" onclick="doUpdate('${title}')"class='boton-Op'>Enviar</button>
+        <button type="button" onclick="actualizarArt('${title}')"class='boton-Op'>Enviar</button>
         <button type="button" onclick="lista()"class='boton-Op'>Cancelar</button>
       </form>`;
 
     editContainer.innerHTML = html;
-
-    // Agregar un evento onsubmit al formulario para prevenir la recarga de la página
-    document.getElementById('updateForm').onsubmit = function(event) {
-      event.preventDefault();
-    };
   }
 }
 /*
- * Esta función recibe el título del artículo y con la variable userKey y
- * lo llenado en el formulario, invoca a update.pl
+ * Invoca a update.pl
  */
-function doUpdate(title){
-  console.log('doUpdate');
+function actualizarArt(title){
+  console.log('actualizarArt');
   const userFullName = window.userFullName;
   const userKey = window.userKey;
 
@@ -369,16 +357,16 @@ function doUpdate(title){
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: `usuario=${encodeURIComponent(userKey)}&titulo=${encodeURIComponent(title)}&texto=${encodeURIComponent(newText)}`,
-
-    })
+     })
       .then(response => response.text())
       .then(data => {
         console.log('Respuesta',data);
         // Procesar la respuesta del servidor
          lista();
       })
-      .catch(error => console.error('Error en doUpdate:', error));
+      .catch(error => console.error('Error en actualizarArt:', error));
   } else {
     console.error('Las variables userFullName y userKey no están definidas.');
   }
 }
+
