@@ -16,8 +16,18 @@ function showLogin() {
         <br><br>
         <input type="button" onclick="doLogin()" value="Iniciar Sesión" class='boton-log'>
     </form>`;
-    document.getElementById('main').innerHTML = html;
+    
+    const fondo = document.createElement('div');
+    fondo.classList.add('fondo-oscuro');
+
+    const contcentro = document.createElement('div');
+    contcentro.classList.add('contenedor-centro');
+    contcentro.innerHTML = html;
+
+    document.body.appendChild(fondo);
+    fondo.appendChild(contcentro);
 }
+
 /**
  * Esta función recolecta los valores ingresados login.pl
  * La respuesta del CGI es procesada por la función loginResponse
@@ -40,6 +50,10 @@ function doLogin(){
          var xml = (new window.DOMParser()).parseFromString(data, "text/xml");
          console.log('Respuesta del servidor:', xml);
          loginResponse(xml);
+        //eliminar el fondo
+         const fondo = document.querySelector('.fondo-oscuro');
+         fondo.parentNode.removeChild(fondo);
+
     })
     .catch(error => console.error('Error:', error));
 }
@@ -110,8 +124,18 @@ function formCrearCuenta(){
       <br><br>
       <button type="button" onclick="crearCuenta()"class='boton-log'>Enviar</button>
      </form>`;
-    document.getElementById('main').innerHTML = html;
+     //document.getElementById('main').innerHTML = html;
+     const fondo = document.createElement('div');
+     fondo.classList.add('fondo-oscuro');
+
+     const contcentro = document.createElement('div');
+     contcentro.classList.add('contenedor-centro');
+     contcentro.innerHTML = html;
+
+     document.body.appendChild(fondo);
+     fondo.appendChild(contcentro);
 }
+
 /* Esta función extraerá los datos ingresados en el formulario de
  * registro de nuevos usuarios e invocará al CGI register.pl
  * la respuesta de este CGI será procesada por loginResponse.
@@ -131,8 +155,12 @@ function crearCuenta(){
     body: `user=${encodeURIComponent(user)}&password=${encodeURIComponent(password)}&lastName=${encodeURIComponent(lastName)}&firstName=${encodeURIComponent(firstName)}`,
   })
     .then(response => response.text());
+    //eliminar el fondo
+    const fondo = document.querySelector('.fondo-oscuro');
+    fondo.parentNode.removeChild(fondo);
     showLogin();
 }
+
 
 /*
  * Esta función invocará al CGI list.pl usando el nombre de usuario
