@@ -23,7 +23,7 @@ function showLogin() {
  * La respuesta del CGI es procesada por la función loginResponse
  */
 function doLogin(){
-     console.log('dologin esta ejecutando');
+    console.log('dologin esta ejecutando');
 
     let user = document.getElementById('user').value;
     let password = document.getElementById('password').value;
@@ -37,23 +37,21 @@ function doLogin(){
     })
     .then(response => response.text())
     .then(data => {
-         console.log('Respuesta del servidor:', data);
-         loginResponse(new DOMParser().parseFromString(data, 'text/xml'));
+         var xml = (new window.DOMParser()).parseFromString(data, "text/xml");
+         console.log('Respuesta del servidor:', xml);
+         loginResponse(xml);
     })
     .catch(error => console.error('Error:', error));
 }
+
 /**
- * Esta función recibe una respuesta en un objeto XML
- * Si la respuesta es correcta, recolecta los datos del objeto XML
- * e inicializa la variable userFullName y userKey (e usuario)
- * termina invocando a la funcion showLoggedIn.
- * Si la respuesta es incorrecta, borra los datos del formulario html
- * indicando que los datos de usuario y contraseña no coinciden.
+ * Se inicializa la variable userFullName y userKey (e usuario)
+ * termina invocando a la funcion sesionIniciada.
  */
 function loginResponse(xml) {
-   console.log('loginResponse esta ejecutando');
-
-  const userElement = xml.querySelector('user');
+    
+    console.log('loginResponse esta ejecutando');
+    const userElement = xml.querySelector('user');
 
     if (userElement) {
         const ownerElement = userElement.querySelector('owner');
@@ -65,22 +63,19 @@ function loginResponse(xml) {
             // Inicializa las variables globales
             userFullName = `${firstNameElement.textContent} ${lastNameElement.textContent}`;
             userKey = ownerElement.textContent;
-
-            // Llama a la función showLoggedIn con los datos del usuario
-            showLoggedIn(userFullName, userKey);
+            // Llama a la función sesionIniciada con los datos del usuario
+           sesionIniciada(userFullName, userKey);
             return;
         }
         console.log('Datos incorrectos');
         alert('Los datos son incorrectos o el usuario no existe.');
     }
-
 }
 /**
- * esta función usa la variable userFullName, para actualizar el
- * tag con id userName en el HTML
+ * Actualizar el tag con id userName en el HTML
  * termina invocando a las functiones showWelcome y showMenuUserLogged
  */
-function showLoggedIn(userFullName, userKey){
+function sesionIniciada(userFullName, userKey){
     console.log('showLoggedIn');
   // Actualiza el tag con id userName en el HTML con el nombre del usuario
     document.getElementById('userName').textContent = userFullName;
