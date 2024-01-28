@@ -4,26 +4,63 @@
     <title> Wikipedia</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel='stylesheet' href='myStyle.css'>
     <script src='main.js'></script>
     <script src='myScript.js'></script>
   </head>
-
   <body>
     <div class='header'>
       <h1> Bienvenidos a Wikipedia</h1>
     </div>
-    <div id='menu' class='navegador'>
-      <p onclick='showWelcome()'>Inicio</p>
+    <div  class='navegador'>
+      <!--<p onclick='showWelcome()'>Inicio</p>
       <p onclick='showLogin()'>Identificarse</p>
-      <p onclick='formCrearCuenta()' class='rightAlign'>Crear Cuenta</p>
+      <p onclick='formCrearCuenta()' class='rightAlign'>Crear Cuenta</p>-->
     </div>
-    <div  id='main'>
+    <div class = 'form-container' id="form-container">
+      <div class='inicio'id="inicio">
+        <div class="info-inicio">
+          <h3>Bienvenido a  </h3>
+          <h2>Wikipedia</h2>
+          <p>Integrantes:</p>
+          <ul>
+              <li>Huacani Jara Denise Andrea</li>
+              <li>Carbajal Gonzales Diego Alejandro </li>
+              <li>Vilca Flores Johan</li>
+              <li>Cahua Soto Franco Jesus</li>
+              <li>Jeic Lucciano Valentino Tijero Dávila</li>
+          </ul>
+        </div>
+
+
+      </div>
+      <div class = 'main' id="main">
+
+          <form class ='info-iniciar-sesion'>
+            <h2>Iniciar Sesion </h2>
+            <input type="text" placeholder ="Usuario" id="user" name="user" required>
+            <br><br>
+            <input type="password" placeholder ="Contraseña"id="password" name="password" required>
+            <br><br>
+
+            <input type="button" onclick="doLogin()" value="Iniciar Sesión">
+            <p> No tienes una cuenta ? <a href =></a></p>
+            <input type="button" onclick="formCrearCuenta()" value="Crear Cuenta">
+
+          </form>
+
+
+      </div>
     </div>
     <div class='footer'>
       <p  id='userName' ></p>
     </div>
   </body>
+
 </html>
 
-~
+
