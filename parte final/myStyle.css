@@ -117,26 +117,7 @@ body {
   padding: 5px;
   font-family: 'Times New Roman', Times, serif;
 }
-.navegador {
-    overflow: hidden; /*ocultar cualquier contenido que se desborde*/
-    background-color: #0c5a81;
-}
 
-.navegador p {
-    float: left;
-    display: block;
-    color: #ffffff;
-    text-align: center;
-    padding: 10px 16px;
-    text-decoration: none;
-    font-size: 20px;
-}
-
-  /* Links - cambiar color */
-.navegador  p:hover {
-    background-color: #ffffff;
-    color: #0c5a81;
-}
 .footer {
   display: none;
   padding: 20px;
