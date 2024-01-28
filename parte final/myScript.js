@@ -16,7 +16,7 @@ function showLogin() {
         <br><br>
         <input type="button" onclick="doLogin()" value="Iniciar Sesión" class='boton-log'>
     </form>`;
-    
+    //document.getElementById('main')..appendChild(centerContainer);
     const fondo = document.createElement('div');
     fondo.classList.add('fondo-oscuro');
 
@@ -27,7 +27,6 @@ function showLogin() {
     document.body.appendChild(fondo);
     fondo.appendChild(contcentro);
 }
-
 /**
  * Esta función recolecta los valores ingresados login.pl
  * La respuesta del CGI es procesada por la función loginResponse
@@ -50,10 +49,6 @@ function doLogin(){
          var xml = (new window.DOMParser()).parseFromString(data, "text/xml");
          console.log('Respuesta del servidor:', xml);
          loginResponse(xml);
-        //eliminar el fondo
-         const fondo = document.querySelector('.fondo-oscuro');
-         fondo.parentNode.removeChild(fondo);
-
     })
     .catch(error => console.error('Error:', error));
 }
@@ -95,7 +90,6 @@ function sesionIniciada(userFullName, userKey){
     console.log('sesionIniciada');
     // Actualiza el tag con id userName en el HTML con el nombre del usuario
     document.getElementById('userName').textContent = userFullName;
-
     // Llama a las funciones showWelcome y showMenuUserLogged
     showWelcome();
     showMenuUserLogged();
@@ -107,35 +101,22 @@ function sesionIniciada(userFullName, userKey){
  * función crearCuenta
  * */
 function formCrearCuenta(){
-    let html = '<h2>Bienvenido ' + userFullName + '</h2>\n';
-    html += `
-      <form class='formulario' >
-      <label for="user">Usuario:</label>
-      <input type="text" id="user" name="user" required>
+    let html =  `
+      <form class='info-iniciar-sesion' >
+      <h2>Crear Cuenta </h2>
+      <input type="text" placeholder ="Usuario" id="user" name="user" required>
       <br><br>
-      <label for="password">Contraseña:</label>
-      <input type="password" id="password" name="password" required>
+      <input type="password" placeholder ="Contraseña" id="password" name="password" required>
       <br><br>
-      <label for="lastName">Apellido:</label>
-      <input type="text" id="lastName" name="lastName" required>
+      <input type="text" placeholder ="Apellido" id="lastName" name="lastName" required>
       <br><br>
-      <label for="firstName">Nombre:</label>
-      <input type="text" id="firstName" name="firstName" required>
+      <input type="text"  placeholder ="Nombre"  id="firstName" name="firstName" required>
       <br><br>
-      <button type="button" onclick="crearCuenta()"class='boton-log'>Enviar</button>
+      <input type="button" onclick="crearCuenta()" value ="Crear Cuenta">
      </form>`;
-     //document.getElementById('main').innerHTML = html;
-     const fondo = document.createElement('div');
-     fondo.classList.add('fondo-oscuro');
+     document.getElementById('main').innerHTML = html;
 
-     const contcentro = document.createElement('div');
-     contcentro.classList.add('contenedor-centro');
-     contcentro.innerHTML = html;
-
-     document.body.appendChild(fondo);
-     fondo.appendChild(contcentro);
 }
-
 /* Esta función extraerá los datos ingresados en el formulario de
  * registro de nuevos usuarios e invocará al CGI register.pl
  * la respuesta de este CGI será procesada por loginResponse.
@@ -155,12 +136,11 @@ function crearCuenta(){
     body: `user=${encodeURIComponent(user)}&password=${encodeURIComponent(password)}&lastName=${encodeURIComponent(lastName)}&firstName=${encodeURIComponent(firstName)}`,
   })
     .then(response => response.text());
-    //eliminar el fondo
-    const fondo = document.querySelector('.fondo-oscuro');
-    fondo.parentNode.removeChild(fondo);
-    showLogin();
-}
+    sesionIniciada(user,password);
+    //showWelcome();
+    //showMenuUserLogged();
 
+}
 
 /*
  * Esta función invocará al CGI list.pl usando el nombre de usuario
@@ -208,7 +188,8 @@ function mostrarLista(xml){
   }
 
   contenedor.innerHTML = '';
- articles.forEach(article => {
+
+  articles.forEach(article => {
     const owner = article.querySelector('owner').textContent;
     const title = article.querySelector('title').textContent;
 
@@ -319,6 +300,7 @@ function eliminarArchivo(owner, title){
     .catch(error => console.error('Error en eliminarArchivo:', error));
 
 }
+
 /*
  * Esta función recibe los datos del articulo a editar e invoca al cgi
  * article.pl la respuesta del CGI es procesada por responseEdit
@@ -340,7 +322,6 @@ function editarArchivo(owner, title){
     .catch(error => console.error('Error en editarArchivo:', error));
 
 }
-
 /*
  * - Actualizar que invoca a actualizarArt
  * - Cancelar que invoca a lista
@@ -385,7 +366,8 @@ function actualizarArt(title){
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: `usuario=${encodeURIComponent(userKey)}&titulo=${encodeURIComponent(title)}&texto=${encodeURIComponent(newText)}`,
-     })
+
+    })
       .then(response => response.text())
       .then(data => {
         console.log('Respuesta',data);
