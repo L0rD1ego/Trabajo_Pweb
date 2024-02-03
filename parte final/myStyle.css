@@ -2,7 +2,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   background-image: url(https://p4.wallpaperbetter.com/wallpaper/622/676/943/3d-hd-wikipedia-3d-wallpaper-preview.jpg);
   background-size: cover;
   font-family: 'Montserrat', sans-serif;
@@ -14,15 +13,15 @@ body {
   box-shadow: 0 5px 7px rgba(0, 0, 0, 0.1);
   height: 500px;
   max-width: 1500px;
-  transition: all is ease;
-  margin: 10px;
+  margin-top: 100px;
 }
+
 .inicio{
   width: 350px;
   display: flex;
   align-items: center;
   text-align: center;
-  background-color: rgb(168, 195, 186);
+  background-color: rgba(194, 189, 238, 0.964);
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
 }
@@ -96,75 +95,51 @@ body {
 }
 #menu {
   width: 100%;
+  margin-top :-300px;
 }
-
 .menu {
   cursor: pointer;
   margin-bottom: 10px;
-  width :20%;
   color:  rgb(51, 51, 51);
   width: 100%; /* Ocupa el 100% del ancho disponible */
 }
 
 .menu:hover {
-  color: red; /* Cambia el color al pasar el mouse */
+  color:  #4d4d7b; /* Cambia el color al pasar el mouse */
 }
-.header {
-  display: none;
-
-  background-color: white;
-  text-align: center;
-  padding: 5px;
-  font-family: 'Times New Roman', Times, serif;
-}
-
-.footer {
-  display: none;
-  padding: 20px;
-  text-align: center;
-  background: #ddd;
-  margin-top: 20px;
-  overflow: hidden;
-}
-#userName{
-  color: green;
-}
-
-
 .boton-Op {
-    background-color: #00A1F1;
-    color: white;
-    border: none;
-    padding: 8px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    width: 80px;
+  background-color: #86869f;
+  color: white;
+  border: none;
+  padding: 8px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  width: 80px;
 }
 .boton-Op:hover {
-    background-color: #058acc;
+  background-color: #4d4d7b;
+}
+.usuario {
+margin-top:150px;
+margin-bottom :30px;
+align-items: center;
+justify-content: center;
+}
+.icon-usuario {
+margin: 50px 50px 0 50px;
+}
+.icon-usuario i {
+  font-size: 24px;
+  border-radius : 50%;
+  padding: 20px;
+  color: #49126b;
+
+  box-shadow: 0 5px 7px rgba(0, 0, 0, 0.1);
 }
 
-
-.fondo-oscuro {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.nombre-usuario {
+  display: inline-block;
 }
-
-.contenedor-centro {
-    z-index: 1; /* Sobre el fondo oscuro */
-    text-align: center;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-}
-    
