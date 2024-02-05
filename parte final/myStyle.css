@@ -17,6 +17,7 @@ body {
 }
 
 .inicio{
+  padding : 20px;
   width: 350px;
   display: flex;
   align-items: center;
@@ -25,6 +26,7 @@ body {
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
 }
+
 .info-inicio{
   width: 100%;
   padding:30px;
@@ -95,7 +97,18 @@ body {
 }
 #menu {
   width: 100%;
-  margin-top :-300px;
+
+}
+#menu p{
+  font-size:20px;
+  padding:10px 0 10px;
+  box-shadow: 0 5px 7px rgba(0, 0, 0, 0.1);
+  background-color: #9f9feb92;
+}
+#menu hr{
+  width :70%;
+  border-color:#ccccf8;
+  margin-top :20px;
 }
 .menu {
   cursor: pointer;
@@ -106,6 +119,21 @@ body {
 
 .menu:hover {
   color:  #4d4d7b; /* Cambia el color al pasar el mouse */
+}
+.menuOp {
+
+  cursor: pointer;
+  margin-left:30px;
+  margin-bottom: 5px;
+  color:  rgb(51, 51, 51);
+  width: 80%;
+  font-size: 20px;
+}
+
+
+.menuOp p :hover {
+  color:  #4d4d7b; /* Cambia el color al pasar el mouse */
+  background-color: #333;
 }
 .boton-Op {
   background-color: #86869f;
@@ -123,7 +151,6 @@ body {
   background-color: #4d4d7b;
 }
 .usuario {
-margin-top:150px;
 margin-bottom :30px;
 align-items: center;
 justify-content: center;
@@ -132,14 +159,99 @@ justify-content: center;
 margin: 50px 50px 0 50px;
 }
 .icon-usuario i {
-  font-size: 24px;
+  font-size: 35px;
   border-radius : 50%;
   padding: 20px;
   color: #49126b;
 
   box-shadow: 0 5px 7px rgba(0, 0, 0, 0.1);
 }
-
 .nombre-usuario {
   display: inline-block;
+}
+#listaPaginas{
+ background-color: #86869f;
+
+}
+.switch {
+background-color: #73739c;
+color:black;
+border-radius: 1000px;
+border: none;
+position: relative;
+cursor: pointer;
+display: flex;
+outline: none;
+margin-left:30%;
+margin-top:10px;
+
+}
+.switch i {
+ color:black;
+ font-size:20px;
+ margin-top:5px;
+
+}
+.switch ::after{
+content: "";
+display :block;
+width: 30px;
+height: 30px;
+position: absolute;
+background-color:  #e1e1e1d4;
+top:2px;
+left:2px;
+right:unset;
+border-radius: 100%;
+transition: .3s easy all;
+box-shadow: 0 5px 7px rgba(0, 0, 0, 0.1);
+
+}
+.switch span{
+  width: 30px;
+  height: 30px;
+  line-height:30px;
+  display: block;
+  color:white;
+
+}
+.switch.active{
+  background :white;
+  color: black;
+
+}
+.switch.active ::after {
+  left: unset;
+  right:2px;
+
+}
+.inicio.modo-dark{
+  background-color: #351c45;
+}
+.inicio.modo-dark .menu{
+  color:white;
+}
+
+.inicio.modo-dark #menu p {
+  background-color:  #552172;
+}
+.inicio.modo-dark .icon-usuario i{
+  color :#ffffff;
+  box-shadow: 0 5px 7px rgba(255, 255, 255, 0.1);
+}
+.inicio.modo-dark .menuOp {
+  color :white;
+}
+.inicio.modo-dark .menuOp  :hover{
+  color :white;
+}
+.inicio.modo-dark .nombre-usuario {
+  color:white;
+}
+.main.modo-dark {
+  background-color: #392344;
+}
+.main.modo-dark p,
+.main.modo-dark label {
+  color: white; /* Cambia el color del texto a blanco */
 }

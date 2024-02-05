@@ -24,10 +24,10 @@ function doLogin(){
   .catch(error => console.error('Error:', error));
 }
 /**
- * Se inicializa la variable userFullName y userKey (e usuario)
- * termina invocando a la funcion sesionIniciada.
- * indicando que los datos de usuario y contraseña no coinciden.
- */
+* Se inicializa la variable userFullName y userKey (e usuario)
+* termina invocando a la funcion sesionIniciada.
+* indicando que los datos de usuario y contraseña no coinciden.
+*/
 function loginResponse(xml) {
   console.log('loginResponse esta ejecutando');
 
@@ -54,7 +54,7 @@ function loginResponse(xml) {
 
 }
 /**
- * Invoca las functiones showWelcome y showMenuUserLogged
+ * Invoca la function showMenuUserLogged
  */
 function sesionIniciada(userFullName, userKey){
     console.log('sesionIniciada');
@@ -128,6 +128,8 @@ function lista(){
         console.log('Respuesta del servidor:', data);
         var xml = (new window.DOMParser()).parseFromString(data, "text/xml");
         mostrarLista(xml);
+        document.getElementById('listaPaginas').style.backgroundColor='#fffefea6';
+        document.getElementById('paginaNueva').style.backgroundColor='#9f9feb63';
     })
     .catch(error => console.error('Error:', error));
 
@@ -146,11 +148,12 @@ function mostrarLista(xml){
   const articles = xml.querySelectorAll('article');
   const mainElem = document.getElementById('main');
   if (articles.length === 0) {
-    mainElem.innerHTML = '<p>No hay articulos.</p>';
+    mainElem.innerHTML = '<div class="main2"><p>No hay articulos.</p></div>';
     return;
   }
 
   mainElem.innerHTML = '';
+
   articles.forEach(article => {
     const owner = article.querySelector('owner').textContent;
     const title = article.querySelector('title').textContent;
@@ -159,10 +162,11 @@ function mostrarLista(xml){
     articulos.classList.add('article-item');
 
     articulos.innerHTML = `
+    <div class="main2">
       <p><strong>Titulo:</strong> ${title}</p>
       <button onclick="verArchivo('${owner}', '${title}')"class='boton-Op'>Ver</button>
       <button onclick="eliminarArchivo('${owner}', '${title}')"class='boton-Op'>Eliminar</button>
-      <button onclick="editarArchivo('${owner}', '${title}')"class='boton-Op'>Editar</button>
+      <button onclick="editarArchivo('${owner}', '${title}')"class='boton-Op'>Editar</button></div>
     `;
 
     mainElem.appendChild(articulos);
@@ -174,6 +178,8 @@ function mostrarLista(xml){
   mainElem.style.overflowY = 'scroll';
   mainElem.style.textAlign = 'left';
   mainElem.style.alignItems = 'normal';
+  document.getElementById('listaPaginas').style.backgroundColor='9f9feb63';
+  document.getElementById('paginaNueva').style.backgroundColor='#fffefea6';
 }
 /**
  * Dos botones
@@ -183,6 +189,7 @@ function mostrarLista(xml){
 function formNuevoArticulo(){
   console.log('nuevoArticulo');
   let html = `
+  <div class="main2">
     <form id="newForm">
       <label for="titulo">Título :</label>
       <input type="text" id="titulo" name="titulo">
@@ -190,9 +197,11 @@ function formNuevoArticulo(){
       <textarea name="text_intro" rows="5" cols="50"></textarea><br><br>
       <button type="button" onclick="nuevoArticulo()"class='boton-Op'>Enviar</button>
       <button type="button" onclick="lista()"class='boton-Op'>Cancelar</button>
-    </form>`;
+    </form>
+  </div>`;
     document.getElementById('main').innerHTML = html;
-
+    document.getElementById('listaPaginas').style.backgroundColor='#9f9feb92';
+    document.getElementById('paginaNueva').style.backgroundColor='#e1e1e1d4';
 }
 /*
  * Esta función invocará new.pl para resgitrar un nuevo artículo
@@ -219,8 +228,9 @@ function nuevoArticulo(){
       lista();
     })
     .catch(error => console.error('Error en nuevoArticulo:', error));
-// Devolver false para prevenir la recarga de la página
-return false;
+
+  // Devolver false para prevenir la recarga de la página
+  return false;
 }
 
 /*
@@ -306,12 +316,14 @@ function formEditar(xml){
     const text = articleElement.querySelector('text').textContent;
 
     let html = `
+    <div class="main2">
       <form id="editar">
         <input type="hidden" name="titulo" value="${title}">
         <textarea name="text_intro" rows="5" cols="50" >${text}</textarea><br>
         <button type="button" onclick="actualizarArt('${title}')"class='boton-Op'>Enviar</button>
         <button type="button" onclick="lista()"class='boton-Op'>Cancelar</button>
-      </form>`;
+      </form>
+    </div>`;
 
     editContainer.innerHTML = html;
   }
@@ -347,3 +359,5 @@ function actualizarArt(title){
     console.error('Las variables userFullName y userKey no están definidas.');
   }
 }
+
+
