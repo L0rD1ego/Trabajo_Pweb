@@ -7,46 +7,50 @@ use DBI;
 
 # Crear objeto CGI
 my $cgi = CGI->new;
-my $nombre = $cgi->param('arc');
+
+# Obtener parámetros del formulario
+my $usuario = $cgi->param('usuario');
+my $title = $cgi->param('titulo');
+
 # Imprimir encabezado HTTP
 print $cgi->header('text/html');
-my $ruta_completa ="../entry/$nombre";
-open (my $archivo , "<", $ruta_completa) or die "ERROR : No se puedo abrir el archivo";
 
+if (defined $usuario && defined $title) {
+    my $user = 'alumno';
+    my $password = 'pweb1';
+    my $dsn = 'DBI:MariaDB:database=pweb1;host=192.168.1.13';
 
+    my $dbh = DBI->connect($dsn, $user, $password, { RaiseError => 1, PrintError => 0, AutoCommit => 1 })
+        or die ("No se puede conectar a la base de datos: $DBI::errstr");
 
-# Imprimir inicio del HTML
-#print <<HTML;
-#<!DOCTYPE HTML>
-#<html>
-#<head>
-#   <meta charset="utf-8">
-#    <title>Mis páginas wiki</title>
-#</head>
-#<body>
-    print "<h1>$nombre</h1>";
-    #HTML
-while(my $line = <$archivo>){
-  if(($line =~ /```/)){
-    my $codigo = "```";
-        while ($line = <$archivo>) {
-            last if $line =~ /```/;
-            $codigo .= $line."<br></br>";
-        }
-        $codigo.="```";
-        #print "$codigo";
-        my $linea_modi=traducir($codigo);
+    my $sql = "SELECT text FROM Articles WHERE owner=? AND title=?";
+    my $sth = $dbh->prepare($sql);
+    $sth->execute($usuario, $title);
+    while (my ($text) = $sth->fetchrow_array) {
+      my @lines = split /\n/, $text;
+      my $line_count = scalar @lines;
 
-        print "$linea_modi"
-  }else{
- my $linea_modi= traducir($line);
-    print "$linea_modi";
-
-  }
-
-}
-my $cont;
-sub traducir {
+      for (my $i = 0; $i < $line_count; $i++) {
+          my $line = $lines[$i];
+          if ($line =~ /```/) {
+            my $codigo = "```";
+            while ($i < $line_count - 1 && $lines[$i + 1] !~ /```/) {
+                $i++;
+                $codigo .= $lines[$i] . "<br></br>";
+            }
+            $codigo .= "```";
+            my $linea_modi = traducir($codigo);
+            print "$linea_modi";
+          } else {
+              my $linea_modi = traducir($line);
+              print "$linea_modi";
+          }
+      }
+    }
+    $sth->finish;
+    $dbh->disconnect;
+   }
+   sub traducir {
     my ($linea) = @_;
     my $contenido = $linea;
     if ($contenido eq "") {
@@ -67,4 +71,4 @@ sub traducir {
     }
     return $contenido // $linea;
 }
-                             
+
